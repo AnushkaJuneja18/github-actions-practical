@@ -1,12 +1,13 @@
-name: Hello World
+name: say-hello
 
-# Trigger this workflow on every push
 on:
-  push:
+  pull_request:
+    types: [opened]
 
 jobs:
-  say-hello:
+  greet:
+    if: github.event.pull_request.user.login != github.event.repository.owner.login
     runs-on: ubuntu-latest
     steps:
-      - name: Print Hello
-        run: echo "Hello, world! ~@
+      - name: Say Hello
+        run: echo "🎉 Hello @${{ github.event.pull_request.user.login }}, thanks for your first contribution!"
